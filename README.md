@@ -21,9 +21,7 @@
 
 Servlet Container에서 HTTP프로토콜을 통해 들어오는 모든 요청을 프레젠테이션 계층의 제일앞에 둬서 중앙집중식으로 처리해주는 프론트 컨트롤러(Front Controller)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6cda13d2-cd93-4d39-a490-0d59c152c72a/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6cda13d2-cd93-4d39-a490-0d59c152c72a/Untitled.png)
-
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fc706395-cdb8-41b4-9185-1a0b89f39121/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fc706395-cdb8-41b4-9185-1a0b89f39121/Untitled.png)
+![DispatcherServlet.png](DispatcherServlet.png)
 
 ### 기존
 
@@ -65,20 +63,20 @@ DispatcherServlet은 핸들러 객체의 실제 타입에 상관 없이, 실행 
 
     DisptcherServlet의 getHandlerAdapter 메서드
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fc486568-3b83-41f5-a463-3a2a75764ef1/_2021-06-18__4.38.32.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fc486568-3b83-41f5-a463-3a2a75764ef1/_2021-06-18__4.38.32.png)
+    ![getHandlerAdapter.png](getHandlerAdapter.png)
 
     - 우리가 사용하는 핸들러어댑터는 주로 RequestMappingHandlerAdapter인데, 이 어댑터의 supports 메서드는 항상 true 리턴한다. `왜 그런진 아직 모름`
 
         RequestMappingHandlerAdapter의 supportsInternal 메서드 (supports의 내부 메서드)
 
-        ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fe99eb38-5bab-4814-afce-ca89aece5e26/_2021-06-18__5.04.40.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fe99eb38-5bab-4814-afce-ca89aece5e26/_2021-06-18__5.04.40.png)
+        ![supportsInternal.png](supportsInternal.png)
 
 2. 부합할 경우 handler 메서드를 실행하여 ModelAndView 를 리턴.
     - ModelAndView 리턴 대신 null을 리턴할 경우 DispatcherServlet은 뷰를 호출하는 작업을 생략한다고 함: [출처](https://joont92.github.io/spring/HandlerMapping-HandlerAdapter-HandlerInterceptor/)
 
         HandlerAdapter의 handle 메서드: 핸들러 메서드가 응답을 직접 처리했다면 null 리턴
 
-        ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c244115b-910b-4c63-ac28-9d18d20f4033/_2021-06-18__4.49.08.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c244115b-910b-4c63-ac28-9d18d20f4033/_2021-06-18__4.49.08.png)
+        ![handle.png](handle.png)
 
 스프링 MVC가 지원하는 컨트롤러는 총 4개이므로, 핸들러 어댑터도 4개이다.
 
@@ -109,7 +107,7 @@ DispatcherServlet은 핸들러 객체의 실제 타입에 상관 없이, 실행 
 
 **키 스트레칭**
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cc1136b2-302d-418c-8233-83238aeb6167/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cc1136b2-302d-418c-8233-83238aeb6167/Untitled.png)
+![key-stretching.png](key-stretching.png)
 
 - 해시함수를 통해 얻은 **다이제스트를 여러번 해시함수로 돌리는 것**이다.
 - 몇 번을 할지는 서버만 알고 있다.
@@ -119,11 +117,15 @@ DispatcherServlet은 핸들러 객체의 실제 타입에 상관 없이, 실행 
 
 **솔트**
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4829a74d-e8db-410d-ae8a-3cbe32771008/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4829a74d-e8db-410d-ae8a-3cbe32771008/Untitled.png)
+![salt.png](salt.png)
 
 - 키 스트레칭만으론 부족하다. 같은 비밀번호를 사용하는 사용자들이 있다면 하나의 결과를 갖고도 다수 사용자의 password 를 알아낼 수 있다. 솔트는 **해시함수를 돌리기 전에 원문에 임의의 문자열을 덧붙이는 것**이다.
 - **사용자마다 다른 Salt 를 사용**한다면 설령 같은 비밀번호더라도 다이제스트의 값은 다르다. 이는 결국 한 명의 패스워드가 유출되더라도 같은 비밀번호를 사용하는 다른 사용자는 비교적 안전하다는 의미기도 하다. 즉, **같은 패스워드를 사용하더라도** salting 된 문자열은 서로 다르기 때문에 **각 사용자의 다이제스트는 서로 다른 값으로 저장**될 것이다.
 - 솔트의 가장 큰 목적은 해당 솔트의 레인보우 테이블 새로 생성하여 만들기 위해서는 엄청나게 큰 데이터를 필요로 하기 때문에 자연스럽게 레인보우 테이블 생성을 방지하는 역할을 해주기도 한다.
+
+**두 가지 방법을 혼용**
+
+![key-stretching-salt.png](key-stretching-salt.png)
 
 ## @ParameterizedTest 테스트 이름 설정
 
