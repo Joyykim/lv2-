@@ -135,17 +135,17 @@ DispatcherServlet은 핸들러 객체의 실제 타입에 상관 없이, 실행 
 
 테스트가 Junit5의 `@ParameterizedTest` 일 때는 `@DisplayName` 만 설정해선 기대처럼 테스트의 이름이 실행창에 보여지지 않는다.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/64e85889-03b5-4af1-81fb-c2ff9e01edd4/_2021-06-11__7.42.21.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/64e85889-03b5-4af1-81fb-c2ff9e01edd4/_2021-06-11__7.42.21.png)
+![1-1.png](1-1.png)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ccd88405-e942-4334-9146-904375ffe896/_2021-06-11__7.42.58.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ccd88405-e942-4334-9146-904375ffe896/_2021-06-11__7.42.58.png)
+![1-2.png](1-2.png)
 
 ---
 
 `@ParameterizedTest` 의 `name` 을 통해 테스트이름을 커스텀할 수 있다.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8a8604a5-db94-4101-87e3-481a39b06aa1/_2021-06-11__7.47.45.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8a8604a5-db94-4101-87e3-481a39b06aa1/_2021-06-11__7.47.45.png)
+![2-1.png](2-1.png)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0471c5be-9e4a-488e-9e1d-06fd2e1d9dba/_2021-06-11__7.48.07.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0471c5be-9e4a-488e-9e1d-06fd2e1d9dba/_2021-06-11__7.48.07.png)
+![2-2.png](2-2.png)
 
 ---
 
@@ -216,4 +216,4 @@ private static Stream<Arguments> calculateSource() {
 
 결과
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cb579fea-3e95-4245-a399-eb903d189264/_2021-06-03__2.58.29.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cb579fea-3e95-4245-a399-eb903d189264/_2021-06-03__2.58.29.png)
+![3.png](3.png)
