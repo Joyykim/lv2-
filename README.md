@@ -173,8 +173,8 @@ DispatcherServlet은 핸들러 객체의 실제 타입에 상관 없이, 실행 
     @ParameterizedTest(name = ARGUMENTS_WITH_NAMES_PLACEHOLDER)
     @MethodSource("testSource")
     void test(int age, String name) {
-assertThat(age).isLessThan(100);
-assertThat(name).isNotNull();
+    assertThat(age).isLessThan(100);
+    assertThat(name).isNotNull();
     }
 
     private static Stream<Arguments> testSource() {
@@ -197,7 +197,7 @@ void calculate(int distance, int expectedFare) {
     int fare = fareByDistance.calculate();
 
     // then
-assertThat(fare).isEqualTo(expectedFare);
+    assertThat(fare).isEqualTo(expectedFare);
 }
 
 private static Stream<Arguments> calculateSource() {
